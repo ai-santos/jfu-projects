@@ -5,3 +5,10 @@
 .map-display {
   margin-top: 17px;
 }
+
+.projects {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
