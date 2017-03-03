@@ -1,32 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Mapbox Project</title>
+  <head>
+    <meta charset="UTF-8">
+    <title>Mapbox Project</title>
 
+    <link rel="stylesheet" href="./stylesheets/style.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container">
 
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <div class="page-header">
+        <h1>Justice For Us</h1>
+        <h4>Share | Develop | Resource</h4>
+      </div>
 
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-  div
-  <form class="navbar-form navbar-left" role="search">
-    <div class="form-group">
-      <input type="text" class="form-control" placeholder="Search">
+      <div class="row">
+
+        <div class="col-md-4">
+          <div class="input-group form-margin">
+            <input type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">Go!</button>
+            </span>
+          </div><!-- /input-group -->
+
+          <div class="form-group">
+            <input type="project_name" class="form-control" id="project-name" placeholder="Project Name">
+          </div>
+
+          <div class="form-group">
+            <input type="address1" class="form-control" id="address1" placeholder="Email">
+          </div>
+
+          <div class="form-group">
+            <input type="address2" class="form-control" id="address2" placeholder="Email">
+          </div>
+
+          <div class="form-group">
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+          </div>
+
+          <div class="form-group form-margin">
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+
+        <div class="col-md-8 map-display">
+          <div class="jumbotron">
+            <img src="https://api.mapbox.com/styles/v1/mapbox/light-v9/static/0.000000,-0.000000,0.22,0.00,0.00/600x400?access_token=pk.eyJ1IjoiYXNhbnRvczMwMjYiLCJhIjoiZWZlMmMyM2JiN2ZiNzcxZmJkOGJhMWNhZWE4ODc1MjMifQ.Moj73Bv5_uyylRIcZkXcYg" width="600"height="400"alt="Mapbox Light"/>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="page-header">
+            <h1><small>Projects</small></h1>
+          </div>
+          <div class="row">
+            <div class="col-md-3"><h4>hello this is my data</h4></div>
+            <div class="col-md-3"><h4>hello this is my data</h4></div>
+            <div class="col-md-3"><h4>hello this is my data</h4></div>
+            <div class="col-md-3"><h4>hello this is my data</h4></div>
+          </div>
+        </div>
+
+      </div>
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-  </form>
 
+      <script src="https://code.jquery.com/jquery-3.1.1.js"
+      integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+      crossorigin="anonymous"></script>
 
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <script src="./scripts/app.js"></script>
 
-
-
-
-</head>
-<body>
-
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-</body>
-</html>
+    </body>
+  </html>
