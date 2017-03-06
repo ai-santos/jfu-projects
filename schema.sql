@@ -16,3 +16,6 @@ CREATE TABLE projects(
 
 INSERT INTO projects (id, name, address, city, state, zip, phone, email)
   VALUES (1, 'nature', '1625 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'a@a.com');
+
+INSERT INTO projects (id, name, address, city, state, zip, phone, email)
+  VALUES (2, 'me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'b@b.com');
