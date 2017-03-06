@@ -14,8 +14,11 @@ CREATE TABLE projects(
   email VARCHAR(255)
 );
 
-INSERT INTO projects (id, name, address, city, state, zip, phone, email)
-  VALUES (1, 'nature', '1625 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'a@a.com');
+INSERT INTO projects (name, address, city, state, zip, phone, email)
+  VALUES ('nature', '1625 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'a@a.com');
 
-INSERT INTO projects (id, name, address, city, state, zip, phone, email)
-  VALUES (2, 'me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'b@b.com');
+INSERT INTO projects (name, address, city, state, zip, phone, email)
+  VALUES ('me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'b@b.com');
+
+INSERT INTO projects (name, address, city, state, zip, phone, email)
+  VALUES ('me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'c@c.com');

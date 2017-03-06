@@ -41,10 +41,11 @@ function getSingleProject(req, res, next) {
     });
 }
 
+//add a project
 function createProject(req, res, next) {
+  const {id, name, address, city, state, zip, phone, email} = req.body
   db.none('insert into projects(id, name, address, city, state, zip, phone, email)' +
-      'values(${id}, ${name}, ${address}, ${city}, ${state}, ${zip}, ${phone}, ${email})',
-    req.body)
+  'values($1, $2, $3, $4, $5, $6, $7, $8)', [id, name, address, city, state, zip, phone, email])
     .then(function () {
       res.status(200)
         .json({
@@ -57,25 +58,36 @@ function createProject(req, res, next) {
     });
 }
 
-//create a new project
-// const createProject = (project_name, address, city, state, zip, phone, email) => {
-//   `INSERT INTO
-//     projects (project_name, address, city, state, zip, phone, email)
-//   VALUES
-//     ($1, $2, $3, $4, $5, $6, $7)
-//   RETURNING
-//     *
-//   `
-//   const attributes = [
-//     project_name,
-//     address,
-//     city,
-//     state,
-//     zip,
-//     phone,
-//     email
-//   ]
-//   return db.one(sql, attributes)
-// }
+//update a project
+function updateProject(req, res, next) {
+  const {id, name, address, city, state, zip, phone, email} = req.body
+  return db.oneOrNone('update projects set name=$1, address=$2, city=$3, state=$4, zip=$5, phone=$6, email=$7', [id, name, address, city, state, zip, phone, email])
+  .then(function () {
+    res.status(200)
+      .json({
+        status: 'success',
+        message: 'Updated one project'
+      });
+  })
+  .catch(function (err) {
+    return next(err)
+  })
+}
 
-module.exports = { getAllProjects: getAllProjects, getSingleProject: getSingleProject, createProject: createProject }
+//delete a project
+function removeProject(req, res, next) {
+  const projID = parseInt(req.params.id)
+  db.result('delete from projects where id=$1', projID)
+    .then(function(result){
+      res.status(200)
+        .json({
+          status: 'success',
+          message: `Removed ${result.rowCount} project`
+        })
+    })
+    .catch(function(err) {
+      return next(err)
+    })
+}
+
+module.exports = { getAllProjects: getAllProjects, getSingleProject: getSingleProject, createProject: createProject, updateProject: updateProject, removeProject: removeProject }

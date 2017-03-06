@@ -37,8 +37,19 @@ function getSingleProject(req, res, next) {
   });
 }
 
+//add a project
 function createProject(req, res, next) {
-  db.none('insert into projects(id, name, address, city, state, zip, phone, email)' + 'values(${id}, ${name}, ${address}, ${city}, ${state}, ${zip}, ${phone}, ${email})', req.body).then(function () {
+  var _req$body = req.body,
+      id = _req$body.id,
+      name = _req$body.name,
+      address = _req$body.address,
+      city = _req$body.city,
+      state = _req$body.state,
+      zip = _req$body.zip,
+      phone = _req$body.phone,
+      email = _req$body.email;
+
+  db.none('insert into projects(id, name, address, city, state, zip, phone, email)' + 'values($1, $2, $3, $4, $5, $6, $7, $8)', [id, name, address, city, state, zip, phone, email]).then(function () {
     res.status(200).json({
       status: 'success',
       message: 'Inserted one project'
@@ -48,25 +59,39 @@ function createProject(req, res, next) {
   });
 }
 
-//create a new project
-// const createProject = (project_name, address, city, state, zip, phone, email) => {
-//   `INSERT INTO
-//     projects (project_name, address, city, state, zip, phone, email)
-//   VALUES
-//     ($1, $2, $3, $4, $5, $6, $7)
-//   RETURNING
-//     *
-//   `
-//   const attributes = [
-//     project_name,
-//     address,
-//     city,
-//     state,
-//     zip,
-//     phone,
-//     email
-//   ]
-//   return db.one(sql, attributes)
-// }
+//update a project
+function updateProject(req, res, next) {
+  var _req$body2 = req.body,
+      id = _req$body2.id,
+      name = _req$body2.name,
+      address = _req$body2.address,
+      city = _req$body2.city,
+      state = _req$body2.state,
+      zip = _req$body2.zip,
+      phone = _req$body2.phone,
+      email = _req$body2.email;
 
-module.exports = { getAllProjects: getAllProjects, getSingleProject: getSingleProject, createProject: createProject };
+  return db.oneOrNone('update projects set name=$1, address=$2, city=$3, state=$4, zip=$5, phone=$6, email=$7', [id, name, address, city, state, zip, phone, email]).then(function () {
+    res.status(200).json({
+      status: 'success',
+      message: 'Updated one project'
+    });
+  }).catch(function (err) {
+    return next(err);
+  });
+}
+
+//delete a project
+function removeProject(req, res, next) {
+  var projID = parseInt(req.params.id);
+  db.result('delete from projects where id=$1', projID).then(function (result) {
+    res.status(200).json({
+      status: 'success',
+      message: 'Removed ' + result.rowCount + ' project'
+    });
+  }).catch(function (err) {
+    return next(err);
+  });
+}
+
+module.exports = { getAllProjects: getAllProjects, getSingleProject: getSingleProject, createProject: createProject, updateProject: updateProject, removeProject: removeProject };

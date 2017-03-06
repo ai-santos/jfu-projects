@@ -1,38 +1,15 @@
 "use strict";
 
-document.addEventListener("DOMContentLoaded", function () {
-  console.log('the dom has loaded');
+$(document).ready(function () {
+  // $.ajax({
+  //   url: ''
+  // })
 });
 
-var allProjects = function allProjects() {};
+// document.addEventListener("DOMContentLoaded", () => {
+//   console.log('the dom has loaded')
+// })
 
-// const projects =
-//  [
-//    {
-//      project_name: "proj1", address: "add1", city: "city1", state: "state1", zip: "12345",
-//      phone: "phone1", contact: "contact1", email: "email1"
-//    },
-//    {
-//      project_name: "proj2", address:"add2",  city: "city2", state: "state2", zip: "12345", phone: "5105757589",
-//      contact: "", email: ""
-//    },
-//    {
-//      project_name: "proj3", address:"add2",  city: "city3", state: "state3", zip: "12345", phone: "5105757589",
-//      contact: "", email: ""
-//    },
-//    {
-//      project_name: "proj4", address:"add2",  city: "city4", state: "state4", zip: "12345", phone: "5105757589",
-//      contact: "", email: ""
-//    },
-//    {
-//      project_name: "proj5", address:"add2",  city: "city5", state: "state5", zip: "12345", phone: "5105757589",
-//      contact: "", email: ""
-//    },
-//    {
-//      project_name: 'proj6', address:"add2",  city: "city6", state: "state6", zip: "12345", phone: "5105757589",
-//      contact: "", email: ""
-//    }
-//  ]
 
 // let projTemplate = _.template(
 //   '<% _.each(projects, function(project, index, projects) { %>' +
