@@ -13,6 +13,7 @@ var db = pgp(connectionString);
 //get all projects
 function getAllProjects(req, res, next) {
   db.any('select * from projects').then(function (data) {
+    var allProjects = data;
     res.status(200).json({
       status: 'success',
       data: data,
