@@ -1,3 +1,7 @@
+body.noScroll { /* ...or body.dialogShowing */
+  overflow: hidden;
+}
+
 .form-margin {
   margin-bottom: 17px;
 }
