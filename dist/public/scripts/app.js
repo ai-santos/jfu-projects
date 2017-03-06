@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log('the dom has loaded');
 });
 
+var allProjects = function allProjects() {};
+
 // const projects =
 //  [
 //    {

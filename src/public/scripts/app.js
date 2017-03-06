@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log('the dom has loaded')
 })
 
+const allProjects = () => {
+
+}
+
  // const projects =
  //  [
  //    {

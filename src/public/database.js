@@ -12,7 +12,6 @@ const db = pgp(connectionString)
 function getAllProjects(req, res, next) {
   db.any('select * from projects')
     .then(function (data) {
-      let allProjects = data;
       res.status(200)
         .json({
           status: 'success',
