@@ -4,9 +4,9 @@ var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
 
-var _routes = require('./routes');
+var _index = require('./routes/index');
 
-var _routes2 = _interopRequireDefault(_routes);
+var _index2 = _interopRequireDefault(_index);
 
 var _path = require('path');
 
@@ -25,14 +25,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var server = (0, _express2.default)();
 
 //middleware
-server.use(_express2.default.static(__dirname + '/public'));
+server.set('views', _path2.default.join(__dirname, 'views'));
 server.set('view engine', 'ejs');
 
 // middleware
 server.use((0, _morgan2.default)('dev'));
+server.use(_express2.default.static(_path2.default.join(__dirname + '/public')));
 server.use(_bodyParser2.default.urlencoded({ extended: true }));
 
 //routes
-server.use('/', _routes2.default);
+server.use('/', _index2.default);
 
 server.listen(process.env.PORT || 8080);
+
+module.exports = server;

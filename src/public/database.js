@@ -8,21 +8,24 @@ const pgp = require('pg-promise')(options)
 const connectionString = `postgres://@localhost:5432/${databaseName}`
 const db = pgp(connectionString)
 
+//refactor database functions to handle only database calls
+const getAllProjects = () => {return db.any('select * from projects')}
+
 //get all projects
-function getAllProjects(req, res, next) {
-  db.any('select * from projects')
-    .then(function (data) {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Retrieved ALL projects'
-        });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
+// function getAllProjects(req, res, next) {
+//   db.any('select * from projects')
+//     .then(function (data) {
+//       res.status(200)
+//         .json({
+//           status: 'success',
+//           data: data,
+//           message: 'Retrieved ALL projects'
+//         });
+//     })
+//     .catch(function (err) {
+//       return next(err);
+//     });
+// }
 
 //get a single project
 function getSingleProject(req, res, next) {

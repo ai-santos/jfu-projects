@@ -13,10 +13,25 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var router = _express2.default.Router();
 // const db = require('../public/database')
 
-router.get('/api/projects', _database2.default.getAllProjects);
-router.get('/api/projects/:id', _database2.default.getSingleProject);
-router.post('/api/projects', _database2.default.createProject);
-router.put('/api/projects/:id', _database2.default.updateProject);
-router.delete('/api/projects/:id', _database2.default.removeProject);
+//refactor database functions to only make database calls
+router.get('/', function (request, response, next) {
+  _database2.default.getAllProjects().then(function (projects) {
+    return response.render('home', { projects: projects });
+  }).catch(function (error) {
+    return next(error);
+  });
+});
+
+// router.post('/api/projects', (request, response, next) => {
+//   db.getSingleProject()
+//     .then( projects => response.render())
+// })
+
+
+// router.get('/api/projects', db.getAllProjects);
+// router.get('/api/projects/:id', db.getSingleProject);
+// router.post('/api/projects', db.createProject);
+// router.put('/api/projects/:id', db.updateProject);
+// router.delete('/api/projects/:id', db.removeProject);
 
 module.exports = router;

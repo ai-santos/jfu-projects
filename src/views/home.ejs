@@ -1,3 +1,4 @@
+<!-- views/home.ejs -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,57 +20,25 @@
       </div>
 
       <div class="row">
-        <form method="post" action="/">
+<!-- display form here inside of the col -->
         <div class="col-md-4">
-          <div class="input-group form-margin">
-            <input type="text" class="form-control" placeholder="Search for...">
-            <span class="input-group-btn">
-              <button class="btn btn-default" type="button">Go!</button>
-            </span>
-          </div><!-- /input-group -->
-
-          <div class="form-group">
-            <input type="project_name" class="form-control" id="project-name" placeholder="Project Name">
-          </div>
-
-          <div class="form-group">
-            <input type="address" class="form-control" id="address" placeholder="Address">
-          </div>
-
-          <div class="form-group">
-            <input type="city" class="form-control" id="city" placeholder="City">
-          </div>
-
-          <div class="form-group form-margin">
-            <input type="state" class="form-control" id="state" placeholder="State">
-          </div>
-
-          <div class="form-group form-margin">
-            <input type="zip" class="form-control" id="zip" placeholder="Zip">
-          </div>
-
-          <div class="form-group form-margin">
-            <input type="phone" class="form-control" id="phone" placeholder="Phone">
-          </div>
-
-          <div class="form-group form-margin">
-            <input type="email" class="form-control" id="email" placeholder="Email">
-          </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+          <%- include('partials/project_form') %>
         </div>
-        </form>
 
+<!-- display map here inside jumbotron -->
         <div class="col-md-8 map-display">
           <div class="jumbotron">
-            <img src="https://api.mapbox.com/styles/v1/mapbox/light-v9/static/0.000000,-0.000000,0.22,0.00,0.00/600x400?access_token=pk.eyJ1IjoiYXNhbnRvczMwMjYiLCJhIjoiZWZlMmMyM2JiN2ZiNzcxZmJkOGJhMWNhZWE4ODc1MjMifQ.Moj73Bv5_uyylRIcZkXcYg" width="600"height="400"alt="Mapbox Light"/>
+            <%- include('partials/map') %>
+
           </div>
         </div>
-
         <div class="container">
           <div class="page-header">
             <h1><small>Projects</small></h1>
           </div>
           <div class="projects row">
+<!-- display projects partial here -->
+            <%- include('partials/projects') %>
           </div>
         </div>
 
