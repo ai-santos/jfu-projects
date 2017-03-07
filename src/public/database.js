@@ -11,71 +11,75 @@ const db = pgp(connectionString)
 //refactor database functions to handle only database calls
 const getAllProjects = () => {return db.any('select * from projects')}
 
-//get all projects
-// function getAllProjects(req, res, next) {
-//   db.any('select * from projects')
-//     .then(function (data) {
-//       res.status(200)
-//         .json({
-//           status: 'success',
-//           data: data,
-//           message: 'Retrieved ALL projects'
-//         });
-//     })
-//     .catch(function (err) {
-//       return next(err);
-//     });
-// }
-
 //get a single project
-function getSingleProject(req, res, next) {
-  let projID = parseInt(req.params.id);
-  db.one('select * from projects where id = $1', projID)
-    .then(function (data) {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Retrieved ONE project'
-        });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
+const getSingleProject = (projID) => {
+  return db.one( 'select * from projects where id=$1', [projID] )
 }
 
 //add a project
-function createProject(req, res, next) {
-  const {id, name, address, city, state, zip, phone, email} = req.body
-  db.none('insert into projects(id, name, address, city, state, zip, phone, email)' +
-  'values($1, $2, $3, $4, $5, $6, $7, $8)', [id, name, address, city, state, zip, phone, email])
-    .then(function () {
-      res.status(200)
-        .json({
-          status: 'success',
-          message: 'Inserted one project'
-        });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
+const createProject = (attributes) => {
+  const sql =
+    `INSERT INTO projects (name, address, city, state, zip, phone, email, description) VALUES($1, $2, $3, $4, $5, $6, $7, $8)
+     RETURNING
+      *`
+
+  const variables = [
+    attributes.name,
+    attributes.address,
+    attributes.city,
+    attributes.state,
+    attributes.zip,
+    attributes.phone,
+    attributes.email,
+    attributes.description
+  ]
+  return db.one(sql, variables)
 }
 
 //update a project
-function updateProject(req, res, next) {
-  const {id, name, address, city, state, zip, phone, email} = req.body
-  return db.oneOrNone('update projects set name=$1, address=$2, city=$3, state=$4, zip=$5, phone=$6, email=$7', [id, name, address, city, state, zip, phone, email])
-  .then(function () {
-    res.status(200)
-      .json({
-        status: 'success',
-        message: 'Updated one project'
-      });
-  })
-  .catch(function (err) {
-    return next(err)
-  })
+const updateProject = (attributes) => {
+  const sql =
+  `UPDATE
+    todos
+  SET
+    name=$1
+    address=$2
+    city=$3
+    state=$4
+    zip=$5
+    phone=$6
+    email=$7
+    description=$8
+  WHERE
+    id=$1`
+
+  const variables = [
+    attributes.name,
+    attributes.address,
+    attributes.city,
+    attributes.state,
+    attributes.zip,
+    attributes.phone,
+    attributes.email,
+    attributes.description
+  ]
+  return db.none(sql, variables)
 }
+
+// function updateProject(req, res, next) {
+//   const {id, name, address, city, state, zip, phone, email} = req.body
+//   return db.oneOrNone('update projects set name=$1, address=$2, city=$3, state=$4, zip=$5, phone=$6, email=$7', [id, name, address, city, state, zip, phone, email])
+//   .then(function () {
+//     res.status(200)
+//       .json({
+//         status: 'success',
+//         message: 'Updated one project'
+//       });
+//   })
+//   .catch(function (err) {
+//     return next(err)
+//   })
+// }
 
 //delete a project
 function removeProject(req, res, next) {

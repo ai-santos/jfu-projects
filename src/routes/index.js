@@ -11,15 +11,45 @@ router.get( '/', (request, response, next) => {
     .catch( error => next( error ) )
 })
 
-// router.post('/api/projects', (request, response, next) => {
-//   db.getSingleProject()
-//     .then( projects => response.render())
+// router.get( '/projects', (request, response, next) => {
+//   db.getAllProjects()
+//     .then( projects => response.render('home', { projects }) )
+//     .catch( error => next( error ) )
 // })
 
+router.get('/projects/:proj_id', (request, response, next) => {
+  const { proj_id } = request.params
+  db.getSingleProject(proj_id)
+    .then( project => response.render('project/show', { project }) )
+    .catch ( error => next( error ))
+})
 
-// router.get('/api/projects', db.getAllProjects);
-// router.get('/api/projects/:id', db.getSingleProject);
-// router.post('/api/projects', db.createProject);
+router.post('/projects', (request, response, next) => {
+  db.createProject(request.body.project)
+    .then((projId) => {
+      response.redirect(`/projects/${projId.id}`)
+    })
+    .catch( error => next( error ) )
+})
+
+router.get('/projects/:proj_id/edit', (request, response, next) => {
+  db.getSingleProject(proj_id)
+    .then( edit => {
+      const book = edit[0]
+      response.render('project/edit', { project })
+    })
+    .catch( error => next( error ) )
+})
+
+router.post('/projects/:proj_id', (request, response, next) => {
+  const { projId } = request.params
+  db.updateBook(projId, request.body.project)
+    .then(() => {
+      response.redirect(`/projects/${projId.id}`)
+    })
+    .catch( error => next( error ))
+})
+
 // router.put('/api/projects/:id', db.updateProject);
 // router.delete('/api/projects/:id', db.removeProject);
 

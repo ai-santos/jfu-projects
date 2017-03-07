@@ -11,14 +11,15 @@ CREATE TABLE projects(
   state VARCHAR(255),
   zip VARCHAR(255),
   phone VARCHAR(255),
-  email VARCHAR(255)
+  email VARCHAR(255),
+  description VARCHAR(500)
 );
 
-INSERT INTO projects (name, address, city, state, zip, phone, email)
-  VALUES ('nature', '1625 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'a@a.com');
+INSERT INTO projects (name, address, city, state, zip, phone, email, description)
+  VALUES ('nature', '1625 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'a@a.com', "Lorem Ipsum is simply dummy text of the printing and typesetting");
 
-INSERT INTO projects (name, address, city, state, zip, phone, email)
-  VALUES ('me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'b@b.com');
+INSERT INTO projects (name, address, city, state, zip, phone, email, description)
+  VALUES ('me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'b@b.com', "Lorem Ipsum is simply dummy text of the printing and typesetting");
 
-INSERT INTO projects (name, address, city, state, zip, phone, email)
-  VALUES ('me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'c@c.com');
+INSERT INTO projects (name, address, city, state, zip, phone, email, description)
+  VALUES ('me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'c@c.com', "Lorem Ipsum is simply dummy text of the printing and typesetting");

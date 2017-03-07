@@ -15,79 +15,41 @@ var getAllProjects = function getAllProjects() {
   return db.any('select * from projects');
 };
 
-//get all projects
-// function getAllProjects(req, res, next) {
-//   db.any('select * from projects')
-//     .then(function (data) {
-//       res.status(200)
-//         .json({
-//           status: 'success',
-//           data: data,
-//           message: 'Retrieved ALL projects'
-//         });
-//     })
-//     .catch(function (err) {
-//       return next(err);
-//     });
-// }
-
 //get a single project
-function getSingleProject(req, res, next) {
-  var projID = parseInt(req.params.id);
-  db.one('select * from projects where id = $1', projID).then(function (data) {
-    res.status(200).json({
-      status: 'success',
-      data: data,
-      message: 'Retrieved ONE project'
-    });
-  }).catch(function (err) {
-    return next(err);
-  });
-}
+var getSingleProject = function getSingleProject(projID) {
+  return db.one('select * from projects where id=$1', [projID]);
+};
 
 //add a project
-function createProject(req, res, next) {
-  var _req$body = req.body,
-      id = _req$body.id,
-      name = _req$body.name,
-      address = _req$body.address,
-      city = _req$body.city,
-      state = _req$body.state,
-      zip = _req$body.zip,
-      phone = _req$body.phone,
-      email = _req$body.email;
+var createProject = function createProject(attributes) {
+  var sql = 'INSERT INTO projects (name, address, city, state, zip, phone, email, description) VALUES($1, $2, $3, $4, $5, $6, $7, $8)\n     RETURNING\n      *';
 
-  db.none('insert into projects(id, name, address, city, state, zip, phone, email)' + 'values($1, $2, $3, $4, $5, $6, $7, $8)', [id, name, address, city, state, zip, phone, email]).then(function () {
-    res.status(200).json({
-      status: 'success',
-      message: 'Inserted one project'
-    });
-  }).catch(function (err) {
-    return next(err);
-  });
-}
+  var variables = [attributes.name, attributes.address, attributes.city, attributes.state, attributes.zip, attributes.phone, attributes.email, attributes.description];
+  return db.one(sql, variables);
+};
 
 //update a project
-function updateProject(req, res, next) {
-  var _req$body2 = req.body,
-      id = _req$body2.id,
-      name = _req$body2.name,
-      address = _req$body2.address,
-      city = _req$body2.city,
-      state = _req$body2.state,
-      zip = _req$body2.zip,
-      phone = _req$body2.phone,
-      email = _req$body2.email;
+var updateProject = function updateProject(attributes) {
+  var sql = 'UPDATE\n    todos\n  SET\n    name=$1\n    address=$2\n    city=$3\n    state=$4\n    zip=$5\n    phone=$6\n    email=$7\n    description=$8\n  WHERE\n    id=$1';
 
-  return db.oneOrNone('update projects set name=$1, address=$2, city=$3, state=$4, zip=$5, phone=$6, email=$7', [id, name, address, city, state, zip, phone, email]).then(function () {
-    res.status(200).json({
-      status: 'success',
-      message: 'Updated one project'
-    });
-  }).catch(function (err) {
-    return next(err);
-  });
-}
+  var variables = [attributes.name, attributes.address, attributes.city, attributes.state, attributes.zip, attributes.phone, attributes.email, attributes.description];
+  return db.none(sql, variables);
+};
+
+// function updateProject(req, res, next) {
+//   const {id, name, address, city, state, zip, phone, email} = req.body
+//   return db.oneOrNone('update projects set name=$1, address=$2, city=$3, state=$4, zip=$5, phone=$6, email=$7', [id, name, address, city, state, zip, phone, email])
+//   .then(function () {
+//     res.status(200)
+//       .json({
+//         status: 'success',
+//         message: 'Updated one project'
+//       });
+//   })
+//   .catch(function (err) {
+//     return next(err)
+//   })
+// }
 
 //delete a project
 function removeProject(req, res, next) {

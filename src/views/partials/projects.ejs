@@ -1,6 +1,6 @@
-<div class="col-md-3">
+<div class="col-md-4">
   <% projects.forEach((project) => { %>
-    <a href="/api/projects/<%= project.id %>">
+    <a href="/projects/<%= project.id %>">
       <h5><%= project.name %></h5>
       <h5><%= project.address %></h5>
       <h5><%= project.city %></h5>
@@ -8,6 +8,7 @@
       <h5><%= project.zip %></h5>
       <h5><%= project.phone %></h5>
       <h5><%= project.email %></h5>
+      <p><%= projects.description %><p>
     </a>
   <% }) %>
 </div>

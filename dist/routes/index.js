@@ -22,15 +22,49 @@ router.get('/', function (request, response, next) {
   });
 });
 
-// router.post('/api/projects', (request, response, next) => {
-//   db.getSingleProject()
-//     .then( projects => response.render())
+// router.get( '/projects', (request, response, next) => {
+//   db.getAllProjects()
+//     .then( projects => response.render('home', { projects }) )
+//     .catch( error => next( error ) )
 // })
 
+router.get('/projects/:proj_id', function (request, response, next) {
+  var proj_id = request.params.proj_id;
 
-// router.get('/api/projects', db.getAllProjects);
-// router.get('/api/projects/:id', db.getSingleProject);
-// router.post('/api/projects', db.createProject);
+  _database2.default.getSingleProject(proj_id).then(function (project) {
+    return response.render('project/show', { project: project });
+  }).catch(function (error) {
+    return next(error);
+  });
+});
+
+router.post('/projects', function (request, response, next) {
+  _database2.default.createProject(request.body.project).then(function (projId) {
+    response.redirect('/projects/' + projId.id);
+  }).catch(function (error) {
+    return next(error);
+  });
+});
+
+router.get('/projects/:proj_id/edit', function (request, response, next) {
+  _database2.default.getSingleProject(proj_id).then(function (edit) {
+    var book = edit[0];
+    response.render('project/edit', { project: project });
+  }).catch(function (error) {
+    return next(error);
+  });
+});
+
+router.post('/projects/:proj_id', function (request, response, next) {
+  var projId = request.params.projId;
+
+  _database2.default.updateBook(projId, request.body.project).then(function () {
+    response.redirect('/projects/' + projId.id);
+  }).catch(function (error) {
+    return next(error);
+  });
+});
+
 // router.put('/api/projects/:id', db.updateProject);
 // router.delete('/api/projects/:id', db.removeProject);
 

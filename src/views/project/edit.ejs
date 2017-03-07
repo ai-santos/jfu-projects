@@ -1,4 +1,4 @@
-<form method="post" action="/projects">
+<form method="post" action=<% project.id ? '/projects/'+project.id : '/projects'%>>
   <div class="input-group form-margin">
     <input type="text" class="form-control" placeholder="Search for...">
     <span class="input-group-btn">
@@ -35,7 +35,7 @@
   </div>
 
   <div class="form-group form-margin">
-    <textarea name="project[description" id="" cols="100" rows="10" placeholder="Describe Your Project"></textarea>
+    <textarea name="project[description]" id="" cols="100" rows="10" placeholder="Describe Your Project"></textarea>
   </div>
     <button type="submit" class="btn btn-default">Submit</button>
-</form>
+</form>4
