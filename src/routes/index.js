@@ -57,7 +57,7 @@ router.post('/projects/edit/:proj_id', (request, response, next) => {
 
 router.get('/projects/delete/:proj_id', (request, response, next) => {
   const { proj_id } = request.params
-  db.removeBook(proj_id)
+  db.removeProject(proj_id)
     .then(() => {
       response.redirect('/')
     })

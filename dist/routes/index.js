@@ -71,7 +71,7 @@ router.post('/projects/edit/:proj_id', function (request, response, next) {
 router.get('/projects/delete/:proj_id', function (request, response, next) {
   var proj_id = request.params.proj_id;
 
-  _database2.default.removeBook(proj_id).then(function () {
+  _database2.default.removeProject(proj_id).then(function () {
     response.redirect('/');
   }).catch(function (error) {
     return next(error);
