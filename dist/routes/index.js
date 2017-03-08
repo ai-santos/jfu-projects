@@ -40,32 +40,42 @@ router.get('/projects/:proj_id', function (request, response, next) {
 
 router.post('/projects', function (request, response, next) {
   _database2.default.createProject(request.body.project).then(function (projId) {
-    response.redirect('/projects/' + projId.id);
+    response.redirect('/projects/' + projId);
   }).catch(function (error) {
     return next(error);
   });
 });
 
-router.get('/projects/:proj_id/edit', function (request, response, next) {
-  _database2.default.getSingleProject(proj_id).then(function (edit) {
-    var book = edit[0];
+router.get('/projects/edit/:proj_id', function (request, response, next) {
+  console.trace('trace me');
+  var proj_id = request.params.proj_id;
+
+  _database2.default.getSingleProject(proj_id).then(function (project) {
     response.render('project/edit', { project: project });
   }).catch(function (error) {
+    console.log('our request object ----->', request.params);
     return next(error);
   });
 });
 
-router.post('/projects/:proj_id', function (request, response, next) {
-  var projId = request.params.projId;
-
-  _database2.default.updateBook(projId, request.body.project).then(function () {
-    response.redirect('/projects/' + projId.id);
+router.post('/projects/edit/:proj_id', function (request, response, next) {
+  var projId = request.params.proj_id;
+  console.log('this is our request body', projId);
+  _database2.default.updateProject(projId, request.body.project).then(function () {
+    response.redirect('/projects/' + projId);
   }).catch(function (error) {
     return next(error);
   });
 });
 
-// router.put('/api/projects/:id', db.updateProject);
-// router.delete('/api/projects/:id', db.removeProject);
+router.get('/projects/delete/:proj_id', function (request, response, next) {
+  var proj_id = request.params.proj_id;
+
+  _database2.default.removeBook(proj_id).then(function () {
+    response.redirect('/');
+  }).catch(function (error) {
+    return next(error);
+  });
+});
 
 module.exports = router;

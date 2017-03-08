@@ -27,31 +27,42 @@ router.get('/projects/:proj_id', (request, response, next) => {
 router.post('/projects', (request, response, next) => {
   db.createProject(request.body.project)
     .then((projId) => {
-      response.redirect(`/projects/${projId.id}`)
+      response.redirect(`/projects/${projId}`)
     })
     .catch( error => next( error ) )
 })
 
-router.get('/projects/:proj_id/edit', (request, response, next) => {
+router.get('/projects/edit/:proj_id', (request, response, next) => {
+  console.trace('trace me')
+  const { proj_id } = request.params
   db.getSingleProject(proj_id)
-    .then( edit => {
-      const book = edit[0]
+    .then( project => {
       response.render('project/edit', { project })
     })
-    .catch( error => next( error ) )
+    .catch( (error) => {
+      console.log('our request object ----->', request.params)
+      return next( error )
+    })
 })
 
-router.post('/projects/:proj_id', (request, response, next) => {
-  const { projId } = request.params
-  db.updateBook(projId, request.body.project)
+router.post('/projects/edit/:proj_id', (request, response, next) => {
+  const  projId  = request.params.proj_id
+  console.log('this is our request body', projId)
+  db.updateProject(projId, request.body.project)
     .then(() => {
-      response.redirect(`/projects/${projId.id}`)
+      response.redirect(`/projects/${projId}`)
     })
     .catch( error => next( error ))
 })
 
-// router.put('/api/projects/:id', db.updateProject);
-// router.delete('/api/projects/:id', db.removeProject);
+router.get('/projects/delete/:proj_id', (request, response, next) => {
+  const { proj_id } = request.params
+  db.removeBook(proj_id)
+    .then(() => {
+      response.redirect('/')
+    })
+    .catch( error => next ( error ))
+})
 
 module.exports = router;
 

@@ -1,14 +1,14 @@
-<div class="col-md-4">
   <% projects.forEach((project) => { %>
-    <a href="/projects/<%= project.id %>">
-      <h5><%= project.name %></h5>
-      <h5><%= project.address %></h5>
-      <h5><%= project.city %></h5>
-      <h5><%= project.state %></h5>
-      <h5><%= project.zip %></h5>
-      <h5><%= project.phone %></h5>
-      <h5><%= project.email %></h5>
-      <p><%= projects.description %><p>
-    </a>
+    <div class="col-md-3">
+      <a href="/projects/<%= project.id %>">
+        <h5><%= project.name %></h5>
+        <h5><%= project.address %></h5>
+        <h5><%= project.city %></h5>
+        <h5><%= project.state %></h5>
+        <h5><%= project.zip %></h5>
+        <h5><%= project.phone %></h5>
+        <h5><%= project.email %></h5>
+        <p><%= projects.description %><p>
+      </a>
+    </div>
   <% }) %>
-</div>

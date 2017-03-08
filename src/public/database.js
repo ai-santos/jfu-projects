@@ -9,11 +9,11 @@ const connectionString = `postgres://@localhost:5432/${databaseName}`
 const db = pgp(connectionString)
 
 //refactor database functions to handle only database calls
-const getAllProjects = () => {return db.any('select * from projects')}
+const getAllProjects = () => {return db.any('SELECT * FROM projects')}
 
 //get a single project
 const getSingleProject = (projID) => {
-  return db.one( 'select * from projects where id=$1', [projID] )
+  return db.one( 'SELECT * FROM projects WHERE id=$1', [projID] )
 }
 
 //add a project
@@ -37,21 +37,25 @@ const createProject = (attributes) => {
 }
 
 //update a project
-const updateProject = (attributes) => {
+const updateProject = (id, attributes) => {
+  attributes.id = parseInt(id)
+  attributes.zip = parseInt(attributes.zip)
+  attributes.phone = parseInt(attributes.phone)
+  console.log(attributes)
   const sql =
   `UPDATE
-    todos
+    projects
   SET
-    name=$1
-    address=$2
-    city=$3
-    state=$4
-    zip=$5
-    phone=$6
-    email=$7
+    name=$1,
+    address=$2,
+    city=$3,
+    state=$4,
+    zip=$5,
+    phone=$6,
+    email=$7,
     description=$8
   WHERE
-    id=$1`
+    id=$9`
 
   const variables = [
     attributes.name,
@@ -61,8 +65,11 @@ const updateProject = (attributes) => {
     attributes.zip,
     attributes.phone,
     attributes.email,
-    attributes.description
+    attributes.description,
+    attributes.id
   ]
+
+  console.log('FIND ME!!!', variables)
   return db.none(sql, variables)
 }
 
@@ -82,19 +89,23 @@ const updateProject = (attributes) => {
 // }
 
 //delete a project
-function removeProject(req, res, next) {
-  const projID = parseInt(req.params.id)
-  db.result('delete from projects where id=$1', projID)
-    .then(function(result){
-      res.status(200)
-        .json({
-          status: 'success',
-          message: `Removed ${result.rowCount} project`
-        })
-    })
-    .catch(function(err) {
-      return next(err)
-    })
-}
+const removeProject = (projID) => {return db.none('DELETE FROM projects WHERE id=$1', [projID] )}
+
+
+
+// function removeProject(req, res, next) {
+//   const projID = parseInt(req.params.id)
+//   db.result('delete from projects where id=$1', projID)
+//     .then(function(result){
+//       res.status(200)
+//         .json({
+//           status: 'success',
+//           message: `Removed ${result.rowCount} project`
+//         })
+//     })
+//     .catch(function(err) {
+//       return next(err)
+//     })
+// }
 
 module.exports = { getAllProjects: getAllProjects, getSingleProject: getSingleProject, createProject: createProject, updateProject: updateProject, removeProject: removeProject }

@@ -9,8 +9,8 @@ CREATE TABLE projects(
   address VARCHAR(255),
   city VARCHAR(255),
   state VARCHAR(255),
-  zip VARCHAR(255),
-  phone VARCHAR(255),
+  zip INTEGER,
+  phone INTEGER,
   email VARCHAR(255),
   description VARCHAR(500)
 );
