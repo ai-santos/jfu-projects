@@ -1,7 +1,5 @@
 $(document).ready( () => {
 
-  // const MapboxClient = require('mapbox');
-  // const client = new MapboxClient('pk.eyJ1IjoiYXNhbnRvczMwMjYiLCJhIjoiZWZlMmMyM2JiN2ZiNzcxZmJkOGJhMWNhZWE4ODc1MjMifQ.Moj73Bv5_uyylRIcZkXcYg');
 
   mapboxgl.accessToken = 'pk.eyJ1IjoiYXNhbnRvczMwMjYiLCJhIjoiZWZlMmMyM2JiN2ZiNzcxZmJkOGJhMWNhZWE4ODc1MjMifQ.Moj73Bv5_uyylRIcZkXcYg';
 
@@ -11,6 +9,11 @@ $(document).ready( () => {
       center: [-122.208515, 37.779505], // starting position
       zoom: 9 // starting zoom
   });
+
+  map.addControl(new mapboxgl.NavigationControl());
+  map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+  }));
 
   const markerHeight = 50, markerRadius = 10, linearOffset = 25;
   const popupOffsets = {
@@ -24,11 +27,9 @@ $(document).ready( () => {
    'right': [-markerRadius, (markerHeight - markerRadius) * -1]
    };
   const popup = new mapboxgl.Popup({offset:popupOffsets})
-    .setLngLat([-122.208515, 37.779505])
-    .setHTML("<h1>Mel's Project!</h1>")
+    .setLngLat([-122.17345, 37.806771])
+    .setHTML("<img src='http://i.imgur.com/XTcPWf9t.jpg'></img>")
     .addTo(map);
-
-
 })
 
 

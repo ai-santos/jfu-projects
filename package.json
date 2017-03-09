@@ -34,6 +34,8 @@
     "ejs": "^2.5.6",
     "express": "^4.15.0",
     "logger": "0.0.1",
+    "mapbox": "^1.0.0-beta6",
+    "mapbox-gl-geocoder": "^2.0.1",
     "mocha": "^3.2.0",
     "morgan": "^1.8.1",
     "path": "^0.12.7",
