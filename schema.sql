@@ -9,17 +9,36 @@ CREATE TABLE projects(
   address VARCHAR(255),
   city VARCHAR(255),
   state VARCHAR(255),
-  zip INTEGER,
-  phone INTEGER,
+  zip VARCHAR(255),
+  phone VARCHAR,
   email VARCHAR(255),
-  description VARCHAR(500)
+  description TEXT
 );
 
 INSERT INTO projects (name, address, city, state, zip, phone, email, description)
-  VALUES ('nature', '1625 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'a@a.com', "Lorem Ipsum is simply dummy text of the printing and typesetting");
+  VALUES ('nature', '1625 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'a@a.com', 'Lorem');
 
 INSERT INTO projects (name, address, city, state, zip, phone, email, description)
-  VALUES ('me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'b@b.com', "Lorem Ipsum is simply dummy text of the printing and typesetting");
+  VALUES ('me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'b@b.com', 'Lorem');
 
 INSERT INTO projects (name, address, city, state, zip, phone, email, description)
-  VALUES ('me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'c@c.com', "Lorem Ipsum is simply dummy text of the printing and typesetting");
+  VALUES ('me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'c@c.com', 'Lorem');
+
+INSERT INTO projects (name, address, city, state, zip, phone, email, description)
+  VALUES ('me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'c@c.com', 'Lorem');
+
+INSERT INTO projects (name, address, city, state, zip, phone, email, description)
+  VALUES ('me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'c@c.com', 'Lorem');
+
+
+INSERT INTO projects (name, address, city, state, zip, phone, email, description)
+  VALUES ('me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'c@c.com', 'Lorem');
+
+INSERT INTO projects (name, address, city, state, zip, phone, email, description)
+  VALUES ('me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'c@c.com', 'Lorem');
+
+INSERT INTO projects (name, address, city, state, zip, phone, email, description)
+  VALUES ('me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'c@c.com', 'Lorem');
+
+INSERT INTO projects (name, address, city, state, zip, phone, email, description)
+  VALUES ('me', '1650 woolsey street', 'berkeley', 'ca', 94703, 5102346789, 'c@c.com', 'Lorem');
