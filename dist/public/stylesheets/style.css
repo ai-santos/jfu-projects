@@ -1,6 +1,15 @@
-body.noScroll { /* ...or body.dialogShowing */
-  overflow: hidden;
+body {
+  margin:0; padding:0;
 }
+
+#map {
+  position:absolute;
+  top:0;
+  bottom:0;
+  height: 500px;
+  width:100%;
+}
+
 
 .form-margin {
   margin-bottom: 17px;
