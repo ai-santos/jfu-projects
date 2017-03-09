@@ -11,10 +11,13 @@ $(document).ready(function () {
     zoom: 9 // starting zoom
   });
 
-  map.addControl(new mapboxgl.NavigationControl());
-  map.addControl(new MapboxGeocoder({
+  var geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken
-  }));
+  });
+
+  map.addControl(new mapboxgl.NavigationControl());
+  map.addControl(geocoder);
+  // map.addControl(new mapboxgl.GeolocateControl());
 
   var markerHeight = 50,
       markerRadius = 10,

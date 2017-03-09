@@ -10,10 +10,13 @@ $(document).ready( () => {
       zoom: 9 // starting zoom
   });
 
-  map.addControl(new mapboxgl.NavigationControl());
-  map.addControl(new MapboxGeocoder({
+  const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken
-  }));
+  });
+
+  map.addControl(new mapboxgl.NavigationControl());
+  map.addControl(geocoder);
+  // map.addControl(new mapboxgl.GeolocateControl());
 
   const markerHeight = 50, markerRadius = 10, linearOffset = 25;
   const popupOffsets = {
@@ -30,6 +33,9 @@ $(document).ready( () => {
     .setLngLat([-122.17345, 37.806771])
     .setHTML("<img src='http://i.imgur.com/XTcPWf9t.jpg'></img>")
     .addTo(map);
+
+
+
 })
 
 
