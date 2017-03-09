@@ -25,9 +25,10 @@ router.get('/projects/:proj_id', (request, response, next) => {
 })
 
 router.post('/projects', (request, response, next) => {
+  console.log('getting ready to post')
   db.createProject(request.body.project)
-    .then((projId) => {
-      response.redirect(`/projects/${projId}`)
+    .then((project) => {
+      response.redirect(`/projects/${project.id}`)
     })
     .catch( error => next( error ) )
 })

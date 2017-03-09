@@ -39,8 +39,9 @@ router.get('/projects/:proj_id', function (request, response, next) {
 });
 
 router.post('/projects', function (request, response, next) {
-  _database2.default.createProject(request.body.project).then(function (projId) {
-    response.redirect('/projects/' + projId);
+  console.log('getting ready to post');
+  _database2.default.createProject(request.body.project).then(function (project) {
+    response.redirect('/projects/' + project.id);
   }).catch(function (error) {
     return next(error);
   });

@@ -25,6 +25,7 @@ var createProject = function createProject(attributes) {
   var sql = 'INSERT INTO projects (name, address, city, state, zip, phone, email, description) VALUES($1, $2, $3, $4, $5, $6, $7, $8)\n     RETURNING\n      *';
 
   var variables = [attributes.name, attributes.address, attributes.city, attributes.state, attributes.zip, attributes.phone, attributes.email, attributes.description];
+  console.log('variables --->', variables);
   return db.one(sql, variables);
 };
 

@@ -33,6 +33,7 @@ const createProject = (attributes) => {
     attributes.email,
     attributes.description
   ]
+  console.log('variables --->', variables)
   return db.one(sql, variables)
 }
 
