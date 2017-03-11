@@ -38,6 +38,7 @@
     "mapbox-gl-geocoder": "^2.0.1",
     "mocha": "^3.2.0",
     "morgan": "^1.8.1",
+    "openlayers": "^4.0.1",
     "path": "^0.12.7",
     "pg-promise": "^5.6.2",
     "underscore": "^1.8.3"
