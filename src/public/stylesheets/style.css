@@ -10,6 +10,9 @@ body {
   width:100%;
 }
 
+.project-margin {
+  margin-top: 25px;
+}
 
 .form-margin {
   margin-bottom: 17px;

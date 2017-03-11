@@ -12,11 +12,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var router = _express2.default.Router();
 // const db = require('../public/database')
+var allMyProjects = {};
 
 //refactor database functions to only make database calls
 router.get('/', function (request, response, next) {
   _database2.default.getAllProjects().then(function (projects) {
     return response.render('home', { projects: projects });
+  }).catch(function (error) {
+    return next(error);
+  });
+});
+
+router.get('/api/projects', function (request, response, next) {
+  _database2.default.getAllProjects().then(function (projects) {
+    return response.send(projects);
   }).catch(function (error) {
     return next(error);
   });

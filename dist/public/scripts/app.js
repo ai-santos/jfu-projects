@@ -13,24 +13,29 @@ $(document).ready(function () {
 
   var geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken
+
   });
 
-  map.addControl(new mapboxgl.NavigationControl());
-  map.addControl(geocoder);
-  // map.addControl(new mapboxgl.GeolocateControl());
+  document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+  // map.addControl(new mapboxgl.NavigationControl());
+  var getAllMyProjects = function getAllMyProjects(serialData) {
+    $.get('/api/projects', function (data) {
+      var allProjects = data;
+      // console.log(data)
 
-  var markerHeight = 50,
-      markerRadius = 10,
-      linearOffset = 25;
-  var popupOffsets = {
-    'top': [0, 0],
-    'top-left': [0, 0],
-    'top-right': [0, 0],
-    'bottom': [0, -markerHeight],
-    'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-    'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-    'left': [markerRadius, (markerHeight - markerRadius) * -1],
-    'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+      for (var index in data) {
+        var address = data[index].address.toString();
+        var state = data[index].state.toString();
+        var city = data[index].city.toString();
+        var zip = data[index].zip.toString();
+
+        var entireAddress = [address + ' ' + state + ' ' + city + ',' + zip];
+        console.log(entireAddress.join(''));
+        // geocoder.query(entireAddress, (err, result) => {
+        //   console.log('this is our result--->', result)
+        // })
+      }
+    });
   };
-  var popup = new mapboxgl.Popup({ offset: popupOffsets }).setLngLat([-122.17345, 37.806771]).setHTML("<img src='http://i.imgur.com/XTcPWf9t.jpg'></img>").addTo(map);
+  getAllMyProjects();
 });

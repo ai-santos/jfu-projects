@@ -3,11 +3,18 @@ import db from '../public/database'
 
 const router = express.Router()
 // const db = require('../public/database')
+const allMyProjects = {}
 
 //refactor database functions to only make database calls
 router.get( '/', (request, response, next) => {
   db.getAllProjects()
     .then( projects => response.render('home', { projects }) )
+    .catch( error => next( error ) )
+})
+
+router.get('/api/projects', (request, response, next) => {
+  db.getAllProjects()
+    .then( projects => response.send(projects))
     .catch( error => next( error ) )
 })
 
@@ -64,6 +71,8 @@ router.get('/projects/delete/:proj_id', (request, response, next) => {
     })
     .catch( error => next ( error ))
 })
+
+
 
 module.exports = router;
 

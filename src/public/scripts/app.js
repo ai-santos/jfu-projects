@@ -1,6 +1,5 @@
 $(document).ready( () => {
 
-
   mapboxgl.accessToken = 'pk.eyJ1IjoiYXNhbnRvczMwMjYiLCJhIjoiZWZlMmMyM2JiN2ZiNzcxZmJkOGJhMWNhZWE4ODc1MjMifQ.Moj73Bv5_uyylRIcZkXcYg';
 
   const map = new mapboxgl.Map({
@@ -12,30 +11,31 @@ $(document).ready( () => {
 
   const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken
+
   });
 
-  map.addControl(new mapboxgl.NavigationControl());
-  map.addControl(geocoder);
-  // map.addControl(new mapboxgl.GeolocateControl());
+  document.getElementById('geocoder').appendChild(geocoder.onAdd(map))
+  // map.addControl(new mapboxgl.NavigationControl());
+  const getAllMyProjects = (serialData) => {
+    $.get('/api/projects', (data) => {
+        let allProjects = data
+        // console.log(data)
 
-  const markerHeight = 50, markerRadius = 10, linearOffset = 25;
-  const popupOffsets = {
-   'top': [0, 0],
-   'top-left': [0,0],
-   'top-right': [0,0],
-   'bottom': [0, -markerHeight],
-   'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-   'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-   'left': [markerRadius, (markerHeight - markerRadius) * -1],
-   'right': [-markerRadius, (markerHeight - markerRadius) * -1]
-   };
-  const popup = new mapboxgl.Popup({offset:popupOffsets})
-    .setLngLat([-122.17345, 37.806771])
-    .setHTML("<img src='http://i.imgur.com/XTcPWf9t.jpg'></img>")
-    .addTo(map);
+        for(let index in data) {
+          let address = data[index].address.toString()
+          let state = data[index].state.toString()
+          let city = data[index].city.toString()
+          let zip = data[index].zip.toString()
 
-
-
+          let entireAddress = [address + ' ' + state + ' ' + city + ',' +zip]
+          console.log(entireAddress.join(''))
+          // geocoder.query(entireAddress, (err, result) => {
+          //   console.log('this is our result--->', result)
+          // })
+        }
+    })
+  }
+  getAllMyProjects()
 })
 
 
