@@ -45,7 +45,7 @@ router.get('/api/projects', (request, response, next) => {
     .then( addresses => addresses.map(geocoderPromise))
     .then(geocodePromises => {
       Promise.all(geocodePromises)
-              .then(geocodes => response.json(geocodes))
+        .then(geocodes => response.json(geocodes))
     }).catch(error => {console.log('error', error); response.send(error)})
 })
 
