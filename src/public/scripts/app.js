@@ -43,22 +43,9 @@ $(document).ready( () => {
     $.get('/api/projects', (data) => {
       let allProjects = data
       // console.log('this is our data', data)
-
-      for(let index in data) {
-        let address = data[index].address.toString()
-        let state = data[index].state.toString()
-        let city = data[index].city.toString()
-        let zip = data[index].zip.toString()
-
-        let parseAddress = [address + ' ' + city + ' ' + state + ' ,' + zip ]
-        let addressToGeocode = parseAddress.join('')
-
-        // // Geocoding
-        // geocoder.geocode(addressToGeocode, ( err, data ) => {
-        //   console.log('this is our data object', data)
-        // })
-      }
     })
   }
-  addProjectsToMap()
+
 })
+
+

@@ -55,12 +55,6 @@ router.get('/api/projects', (request, response, next) => {
 //     .catch( error => next( error ) )
 // })
 
-// router.get( '/projects', (request, response, next) => {
-//   db.getAllProjects()
-//     .then( projects => response.render('home', { projects }) )
-//     .catch( error => next( error ) )
-// })
-
 router.get('/projects/:proj_id', (request, response, next) => {
   const { proj_id } = request.params
   db.getSingleProject(proj_id)

@@ -73,12 +73,6 @@ router.get('/api/projects', function (request, response, next) {
 //     .catch( error => next( error ) )
 // })
 
-// router.get( '/projects', (request, response, next) => {
-//   db.getAllProjects()
-//     .then( projects => response.render('home', { projects }) )
-//     .catch( error => next( error ) )
-// })
-
 router.get('/projects/:proj_id', function (request, response, next) {
   var proj_id = request.params.proj_id;
 

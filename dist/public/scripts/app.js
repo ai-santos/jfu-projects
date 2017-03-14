@@ -43,22 +43,6 @@ $(document).ready(function () {
     $.get('/api/projects', function (data) {
       var allProjects = data;
       // console.log('this is our data', data)
-
-      for (var index in data) {
-        var address = data[index].address.toString();
-        var state = data[index].state.toString();
-        var city = data[index].city.toString();
-        var zip = data[index].zip.toString();
-
-        var parseAddress = [address + ' ' + city + ' ' + state + ' ,' + zip];
-        var addressToGeocode = parseAddress.join('');
-
-        // // Geocoding
-        // geocoder.geocode(addressToGeocode, ( err, data ) => {
-        //   console.log('this is our data object', data)
-        // })
-      }
     });
   };
-  addProjectsToMap();
 });
