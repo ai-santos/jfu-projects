@@ -4,6 +4,10 @@ var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
 
+var _geocoder = require('geocoder');
+
+var _geocoder2 = _interopRequireDefault(_geocoder);
+
 var _database = require('../public/database');
 
 var _database2 = _interopRequireDefault(_database);
@@ -13,6 +17,32 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var router = _express2.default.Router();
 // const db = require('../public/database')
 var allMyProjects = {};
+
+var parseAddress = function parseAddress(projects) {
+  var listOfAddresses = [];
+  for (var index in projects) {
+    var address = projects[index].address.toString();
+    var state = projects[index].state.toString();
+    var city = projects[index].city.toString();
+    var zip = projects[index].zip.toString();
+
+    var _parseAddress = [address + ' ' + city + ' ' + state + ' ,' + zip];
+    var addressToGeocode = _parseAddress.join('');
+    listOfAddresses.push(addressToGeocode);
+  }
+  console.log('list of address-->', listOfAddresses);
+  return listOfAddresses;
+};
+
+var geocoderPromise = function geocoderPromise(address) {
+  console.log('addres-->', address);
+  return new Promise(function (resolve, reject) {
+    return _geocoder2.default.geocode(address, function (err, data) {
+      console.log('data', data);
+      resolve(data);
+    });
+  });
+};
 
 //refactor database functions to only make database calls
 router.get('/', function (request, response, next) {
@@ -25,11 +55,23 @@ router.get('/', function (request, response, next) {
 
 router.get('/api/projects', function (request, response, next) {
   _database2.default.getAllProjects().then(function (projects) {
-    return response.send(projects);
+    return parseAddress(projects);
+  }).then(function (addresses) {
+    return addresses.map(geocoderPromise);
+  }).then(function (geocodePromises) {
+    Promise.all(geocodePromises).then(function (geocodes) {
+      return response.json(geocodes);
+    });
   }).catch(function (error) {
-    return next(error);
+    console.log('error', error);response.send(error);
   });
 });
+
+// router.get('/api/projects', (request, response, next) => {
+//   db.getAllProjects()
+//     .then( projects => response.send(projects))
+//     .catch( error => next( error ) )
+// })
 
 // router.get( '/projects', (request, response, next) => {
 //   db.getAllProjects()

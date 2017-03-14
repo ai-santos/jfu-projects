@@ -7,6 +7,7 @@
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <link rel="stylesheet" href="./stylesheets/style.css">
+    <link href="https://cdn.jsdelivr.net/openlayers.geocoder/latest/ol3-geocoder.min.css" rel="stylesheet">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Optional theme -->
@@ -16,6 +17,7 @@
     <!-- Mapbox Styles -->
 <!--     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.css' type='text/css' /> -->
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.33.0/mapbox-gl.css' rel='stylesheet' />
+
   </head>
   <body>
     <div class="container">
@@ -46,24 +48,21 @@
             <%- include('partials/projects') %>
           </div>
         </div>
-
-
     </div>
-
       <script src="https://code.jquery.com/jquery-3.1.1.js"
       integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
       crossorigin="anonymous"></script>
-      <script src="scripts/app.js"></script>
-
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
       <!-- Latest compiled and minified JavaScript -->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-      <!-- Mapbox Scripts -->
-<!--<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.js'></script>-->
       <script src="https://openlayers.org/en/v4.0.1/build/ol.js"></script>
       <script src="https://openlayers.org/en/v4.0.1/examples/resources/mapbox-streets-v6-style.js"></script>
-      <!-- Mapbox Geocoder Plugin -->
-      <!--<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.33.0/mapbox-gl.js'></script>
+      <script src="https://cdn.jsdelivr.net/openlayers.geocoder/latest/ol3-geocoder.js"></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <!--<<script src="scripts/geocoder/index.js"></script>-->
+      <script src="scripts/app.js"></script>
+      <!--<script data-main="scripts/app" src="scripts/require.js"></script>-->
+
     </body>
   </html>

@@ -1,9 +1,36 @@
 import express from 'express'
+import geocoder from 'geocoder'
 import db from '../public/database'
 
 const router = express.Router()
 // const db = require('../public/database')
 const allMyProjects = {}
+
+const parseAddress = (projects) => {
+  const listOfAddresses = []
+  for(let index in projects) {
+    let address = projects[index].address.toString()
+    let state = projects[index].state.toString()
+    let city = projects[index].city.toString()
+    let zip = projects[index].zip.toString()
+
+    let parseAddress = [address + ' ' + city + ' ' + state + ' ,' + zip ]
+    let addressToGeocode = parseAddress.join('')
+    listOfAddresses.push(addressToGeocode)
+  }
+  console.log('list of address-->', listOfAddresses)
+  return listOfAddresses
+}
+
+const geocoderPromise = (address) => {
+  console.log('addres-->', address)
+  return new Promise((resolve, reject) => {
+    return geocoder.geocode(address, (err, data) => {
+      console.log('data', data)
+      resolve(data)
+    })
+  })
+}
 
 //refactor database functions to only make database calls
 router.get( '/', (request, response, next) => {
@@ -14,9 +41,19 @@ router.get( '/', (request, response, next) => {
 
 router.get('/api/projects', (request, response, next) => {
   db.getAllProjects()
-    .then( projects => response.send(projects))
-    .catch( error => next( error ) )
+    .then( projects => parseAddress(projects))
+    .then( addresses => addresses.map(geocoderPromise))
+    .then(geocodePromises => {
+      Promise.all(geocodePromises)
+              .then(geocodes => response.json(geocodes))
+    }).catch(error => {console.log('error', error); response.send(error)})
 })
+
+// router.get('/api/projects', (request, response, next) => {
+//   db.getAllProjects()
+//     .then( projects => response.send(projects))
+//     .catch( error => next( error ) )
+// })
 
 // router.get( '/projects', (request, response, next) => {
 //   db.getAllProjects()
@@ -71,8 +108,6 @@ router.get('/projects/delete/:proj_id', (request, response, next) => {
     })
     .catch( error => next ( error ))
 })
-
-
 
 module.exports = router;
 
