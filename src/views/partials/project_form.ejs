@@ -1,0 +1,40 @@
+<form method="post" action="/projects">
+<div class="input-group form-margin">
+  <input type="text" class="form-control" placeholder="Search for...">
+  <span class="input-group-btn">
+    <button class="btn btn-default" type="button">Go!</button>
+  </span>
+</div><!-- /input-group -->
+  <div class="form-group">
+    <input type="text" name="project[name]" class="form-control project-margin" id="project-name" placeholder="Project Name">
+  </div>
+
+  <div class="form-group">
+    <input type="text" name="project[address]" class="form-control" id="address" placeholder="Address">
+  </div>
+
+  <div class="form-group">
+    <input type="text" name="project[city]" class="form-control" id="city" placeholder="City">
+  </div>
+
+  <div class="form-group form-margin">
+    <input type="text" name="project[state]" class="form-control" id="state" placeholder="State">
+  </div>
+
+  <div class="form-group form-margin">
+    <input type="number" name="project[zip]" class="form-control" id="zip" placeholder="Zip">
+  </div>
+
+  <div class="form-group form-margin">
+    <input type="tel" name="project[phone]" class="form-control" id="phone" placeholder="Phone">
+  </div>
+
+  <div class="form-group form-margin">
+    <input type="email" name="project[email]" class="form-control" id="email" placeholder="Email">
+  </div>
+
+  <div class="form-group form-margin">
+    <textarea name="project[description]" id="" cols="50" rows="5" placeholder="Describe Your Project"></textarea>
+  </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>

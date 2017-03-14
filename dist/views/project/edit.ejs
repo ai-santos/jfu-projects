@@ -1,0 +1,34 @@
+<form method="post" action=<% project.id ? "/projects/"+project.id : '/projects'%>>
+  <div class="form-group">
+    <input type="text" name="project[name]" class="form-control" id="project-name" value=<%= project.name %> placeholder=<%= project.name %>>
+  </div>
+
+  <div class="form-group">
+    <input type="text" name="project[address]" class="form-control" id="address" value=<%= project.address %> placeholder=<%= project.address %>>
+  </div>
+
+  <div class="form-group">
+    <input type="text" name="project[city]" class="form-control" id="city" value=<%= project.city %> placeholder=<%= project.city %>>
+  </div>
+
+  <div class="form-group form-margin">
+    <input type="text" name="project[state]" class="form-control" id="state" value=<%= project.state %> placeholder=<%= project.state %>>
+  </div>
+
+  <div class="form-group form-margin">
+    <input type="number" name="project[zip]" class="form-control" id="zip" value=<%= project.zip %> placeholder=<%= project.zip %>>
+  </div>
+
+  <div class="form-group form-margin">
+    <input type="tel" name="project[phone]" class="form-control" id="phone" value=<%= project.phone %> placeholder=<%= project.phone %>>
+  </div>
+
+  <div class="form-group form-margin">
+    <input type="email" name="project[email]" class="form-control" id="email" value=<%= project.email %> placeholder=<%= project.email %>>
+  </div>
+
+  <div class="form-group form-margin">
+    <textarea name="project[description]" id="" cols="100" rows="10" value=<%= project.description %> placeholder=<%= project.description %>></textarea>
+  </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>4

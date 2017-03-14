@@ -1,0 +1,34 @@
+body {
+  margin:0; padding:0;
+}
+
+#map {
+  position:absolute;
+  top:0;
+  bottom:0;
+  height: 500px;
+  width:100%;
+}
+
+.project-margin {
+  margin-top: 25px;
+}
+
+.form-margin {
+  margin-bottom: 17px;
+}
+
+.map-display {
+  margin-top: 17px;
+}
+
+.projects {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.override-projcont {
+  margin-top: 50px;
+}
