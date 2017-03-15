@@ -36,9 +36,7 @@ const parseGeocodes = (geocodes) => {
     }
     return geocode
   })
-  console.log('our active geocodes--->', activeGeocodes)
   return activeGeocodes.map( (obj) => {
-    console.log('our results-->', obj.results[0])
     return obj.results[0].geometry.location
   })
 }
@@ -56,6 +54,7 @@ router.get('/api/projects', (request, response, next) => {
     .then( addresses => addresses.map(geocoderPromise))
     .then(geocodePromises => {
       Promise.all(geocodePromises)
+
       //call a function that maps over geocodes and returns an array of latLongs
       .then( (geocodes) => {
         response.send(parseGeocodes(geocodes))
@@ -87,7 +86,6 @@ router.get('/projects/edit/:proj_id', (request, response, next) => {
       response.render('project/edit', { project })
     })
     .catch( (error) => {
-      console.log('our request object ----->', request.params)
       return next( error )
     })
 })
@@ -109,6 +107,16 @@ router.get('/projects/delete/:proj_id', (request, response, next) => {
       response.redirect('/')
     })
     .catch( error => next ( error ))
+})
+
+router.get('/search-projects', (request, response) => {
+  const searchKeywords = {
+    search_query: request.search_query
+  }
+
+  db.searchProjects(searchKeywords)
+    .then( projects => response.json(projects) )
+    .catch( error => next( error ) )
 })
 
 module.exports = router;

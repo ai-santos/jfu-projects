@@ -1,0 +1,29 @@
+<div class="container">
+
+  <div class="page-header">
+    <h1>Justice For Us</h1>
+    <h4>Share | Develop | Resource</h4>
+  </div>
+
+  <div class="row">
+<!-- display form here inside of the col -->
+    <div class="col-md-4 project-row">
+    <div id='geocoder' class='geocoder'></div>
+      <%- include('partials/project_form') %>
+    </div>
+
+<!-- display map here inside jumbotron -->
+    <div class="col-md-8 map-display">
+        <%- include('partials/map') %>
+    </div>
+
+      <div class="container projects">
+      <div class="row">
+        <div class="page-header">
+          <h1><small>Projects</small></h1>
+        </div>
+<!-- display projects partial here -->
+        <%- include('partials/projects') %>
+      </div>
+    </div>
+</div>
