@@ -2,15 +2,29 @@
 
 $(document).ready(function () {
   var vectorSource = new ol.source.Vector({});
+  var makePins = function makePins(coordinates) {
+    return coordinates.map(function (coordinate) {
+      return makeSinglePin(coordinate);
+    });
+  };
+
+  var makeSinglePin = function makeSinglePin(coordinate) {
+    return new ol.Feature({
+      geometry: new ol.geom.Point(ol.proj.transform([coordinate.lng, coordinate.lat], 'EPSG:4326', 'EPSG:3857')),
+      name: 'Null Island',
+      population: 4000,
+      rainfall: 500
+    });
+  };
 
   //create a bunch of icons and add to source vector
-  var iconFeature = new ol.Feature({
-    geometry: new ol.geom.Point(ol.proj.transform([-122.208515, 37.779505], 'EPSG:4326', 'EPSG:3857')),
-    name: 'Null Island',
-    population: 4000,
-    rainfall: 500
-  });
-  vectorSource.addFeature(iconFeature);
+  // const iconFeature = new ol.Feature({
+  //   geometry: new ol.geom.Point(ol.proj.transform([-122.208515, 37.779505], 'EPSG:4326',   'EPSG:3857')),
+  //   name: 'Null Island',
+  //   population: 4000,
+  //   rainfall: 500
+  // })
+  // vectorSource.addFeature(iconFeature)
 
   //create the style
   var iconStyle = new ol.style.Style({
@@ -40,9 +54,12 @@ $(document).ready(function () {
   });
 
   var addProjectsToMap = function addProjectsToMap(serialData) {
-    $.get('/api/projects', function (data) {
-      var allProjects = data;
-      // console.log('this is our data', data)
+    $.get('/api/projects', function (allProjects) {
+      var pinsArray = makePins(allProjects);
+      pinsArray.map(function (pin) {
+        vectorSource.addFeature(pin);
+      });
     });
   };
+  addProjectsToMap();
 });

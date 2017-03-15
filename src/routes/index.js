@@ -3,7 +3,7 @@ import geocoder from 'geocoder'
 import db from '../public/database'
 
 const router = express.Router()
-// const db = require('../public/database')
+
 const allMyProjects = {}
 
 const parseAddress = (projects) => {
@@ -14,21 +14,32 @@ const parseAddress = (projects) => {
     let city = projects[index].city.toString()
     let zip = projects[index].zip.toString()
 
-    let parseAddress = [address + ' ' + city + ' ' + state + ' ,' + zip ]
-    let addressToGeocode = parseAddress.join('')
+    let parsedAddress = [address + ' ' + city + ' ' + state + ' ,' + zip ]
+    let addressToGeocode = parsedAddress.join('')
     listOfAddresses.push(addressToGeocode)
   }
-  console.log('list of address-->', listOfAddresses)
   return listOfAddresses
 }
 
 const geocoderPromise = (address) => {
-  console.log('addres-->', address)
   return new Promise((resolve, reject) => {
     return geocoder.geocode(address, (err, data) => {
-      console.log('data', data)
       resolve(data)
     })
+  })
+}
+
+const parseGeocodes = (geocodes) => {
+  let activeGeocodes = geocodes.filter( (geocode) => {
+    if(geocode.error_message){
+      return false
+    }
+    return geocode
+  })
+  console.log('our active geocodes--->', activeGeocodes)
+  return activeGeocodes.map( (obj) => {
+    console.log('our results-->', obj.results[0])
+    return obj.results[0].geometry.location
   })
 }
 
@@ -45,15 +56,12 @@ router.get('/api/projects', (request, response, next) => {
     .then( addresses => addresses.map(geocoderPromise))
     .then(geocodePromises => {
       Promise.all(geocodePromises)
-        .then(geocodes => response.json(geocodes))
-    }).catch(error => {console.log('error', error); response.send(error)})
+      //call a function that maps over geocodes and returns an array of latLongs
+      .then( (geocodes) => {
+        response.send(parseGeocodes(geocodes))
+      })
+    }).catch(error => { response.send(error) })
 })
-
-// router.get('/api/projects', (request, response, next) => {
-//   db.getAllProjects()
-//     .then( projects => response.send(projects))
-//     .catch( error => next( error ) )
-// })
 
 router.get('/projects/:proj_id', (request, response, next) => {
   const { proj_id } = request.params
@@ -104,5 +112,3 @@ router.get('/projects/delete/:proj_id', (request, response, next) => {
 })
 
 module.exports = router;
-
-

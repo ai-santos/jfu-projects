@@ -33,7 +33,6 @@ const createProject = (attributes) => {
     attributes.email,
     attributes.description
   ]
-  console.log('variables --->', variables)
   return db.one(sql, variables)
 }
 
@@ -74,39 +73,7 @@ const updateProject = (id, attributes) => {
   return db.none(sql, variables)
 }
 
-// function updateProject(req, res, next) {
-//   const {id, name, address, city, state, zip, phone, email} = req.body
-//   return db.oneOrNone('update projects set name=$1, address=$2, city=$3, state=$4, zip=$5, phone=$6, email=$7', [id, name, address, city, state, zip, phone, email])
-//   .then(function () {
-//     res.status(200)
-//       .json({
-//         status: 'success',
-//         message: 'Updated one project'
-//       });
-//   })
-//   .catch(function (err) {
-//     return next(err)
-//   })
-// }
-
 //delete a project
 const removeProject = (projID) => {return db.none('DELETE FROM projects WHERE id=$1', [projID] )}
-
-
-
-// function removeProject(req, res, next) {
-//   const projID = parseInt(req.params.id)
-//   db.result('delete from projects where id=$1', projID)
-//     .then(function(result){
-//       res.status(200)
-//         .json({
-//           status: 'success',
-//           message: `Removed ${result.rowCount} project`
-//         })
-//     })
-//     .catch(function(err) {
-//       return next(err)
-//     })
-// }
 
 module.exports = { getAllProjects: getAllProjects, getSingleProject: getSingleProject, createProject: createProject, updateProject: updateProject, removeProject: removeProject }

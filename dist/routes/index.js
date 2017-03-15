@@ -15,7 +15,7 @@ var _database2 = _interopRequireDefault(_database);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express2.default.Router();
-// const db = require('../public/database')
+
 var allMyProjects = {};
 
 var parseAddress = function parseAddress(projects) {
@@ -26,21 +26,32 @@ var parseAddress = function parseAddress(projects) {
     var city = projects[index].city.toString();
     var zip = projects[index].zip.toString();
 
-    var _parseAddress = [address + ' ' + city + ' ' + state + ' ,' + zip];
-    var addressToGeocode = _parseAddress.join('');
+    var parsedAddress = [address + ' ' + city + ' ' + state + ' ,' + zip];
+    var addressToGeocode = parsedAddress.join('');
     listOfAddresses.push(addressToGeocode);
   }
-  console.log('list of address-->', listOfAddresses);
   return listOfAddresses;
 };
 
 var geocoderPromise = function geocoderPromise(address) {
-  console.log('addres-->', address);
   return new Promise(function (resolve, reject) {
     return _geocoder2.default.geocode(address, function (err, data) {
-      console.log('data', data);
       resolve(data);
     });
+  });
+};
+
+var parseGeocodes = function parseGeocodes(geocodes) {
+  var activeGeocodes = geocodes.filter(function (geocode) {
+    if (geocode.error_message) {
+      return false;
+    }
+    return geocode;
+  });
+  console.log('our active geocodes--->', activeGeocodes);
+  return activeGeocodes.map(function (obj) {
+    console.log('our results-->', obj.results[0]);
+    return obj.results[0].geometry.location;
   });
 };
 
@@ -59,19 +70,15 @@ router.get('/api/projects', function (request, response, next) {
   }).then(function (addresses) {
     return addresses.map(geocoderPromise);
   }).then(function (geocodePromises) {
-    Promise.all(geocodePromises).then(function (geocodes) {
-      return response.json(geocodes);
+    Promise.all(geocodePromises)
+    //call a function that maps over geocodes and returns an array of latLongs
+    .then(function (geocodes) {
+      response.send(parseGeocodes(geocodes));
     });
   }).catch(function (error) {
-    console.log('error', error);response.send(error);
+    response.send(error);
   });
 });
-
-// router.get('/api/projects', (request, response, next) => {
-//   db.getAllProjects()
-//     .then( projects => response.send(projects))
-//     .catch( error => next( error ) )
-// })
 
 router.get('/projects/:proj_id', function (request, response, next) {
   var proj_id = request.params.proj_id;
