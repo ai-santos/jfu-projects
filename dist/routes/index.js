@@ -48,9 +48,7 @@ var parseGeocodes = function parseGeocodes(geocodes) {
     }
     return geocode;
   });
-  console.log('our active geocodes--->', activeGeocodes);
   return activeGeocodes.map(function (obj) {
-    console.log('our results-->', obj.results[0]);
     return obj.results[0].geometry.location;
   });
 };
@@ -71,6 +69,7 @@ router.get('/api/projects', function (request, response, next) {
     return addresses.map(geocoderPromise);
   }).then(function (geocodePromises) {
     Promise.all(geocodePromises)
+
     //call a function that maps over geocodes and returns an array of latLongs
     .then(function (geocodes) {
       response.send(parseGeocodes(geocodes));
@@ -106,7 +105,6 @@ router.get('/projects/edit/:proj_id', function (request, response, next) {
   _database2.default.getSingleProject(proj_id).then(function (project) {
     response.render('project/edit', { project: project });
   }).catch(function (error) {
-    console.log('our request object ----->', request.params);
     return next(error);
   });
 });
@@ -126,6 +124,18 @@ router.get('/projects/delete/:proj_id', function (request, response, next) {
 
   _database2.default.removeProject(proj_id).then(function () {
     response.redirect('/');
+  }).catch(function (error) {
+    return next(error);
+  });
+});
+
+router.get('/search-projects', function (request, response) {
+  var searchKeywords = {
+    search_query: request.search_query
+  };
+
+  _database2.default.searchProjects(searchKeywords).then(function (projects) {
+    return response.json(projects);
   }).catch(function (error) {
     return next(error);
   });

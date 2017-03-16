@@ -76,4 +76,24 @@ const updateProject = (id, attributes) => {
 //delete a project
 const removeProject = (projID) => {return db.none('DELETE FROM projects WHERE id=$1', [projID] )}
 
-module.exports = { getAllProjects: getAllProjects, getSingleProject: getSingleProject, createProject: createProject, updateProject: updateProject, removeProject: removeProject }
+const searchProjects = (keywords) => {
+  const variables = []
+  let sql = `
+    SELECT
+      DISTINCT(projects.*)
+    FROM
+      projects
+  `
+  if(keywords.search_query) {
+    let search_query = keywords.search_query
+      .toLowerCase()
+      .replace(/^ */, '%')
+      .replace(/ *$/, '%')
+      .replace(/ +/g, '%')
+
+    variables.push(search_query)
+  }
+  return db.any(sql, variables)
+}
+
+module.exports = { getAllProjects: getAllProjects, getSingleProject: getSingleProject, createProject: createProject, updateProject: updateProject, removeProject: removeProject, searchProjects: searchProjects }
