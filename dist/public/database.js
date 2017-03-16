@@ -7,7 +7,7 @@ var options = {
 
 var databaseName = 'jfu_projects';
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://@localhost:5432/' + databaseName;
+var connectionString = process.env.DATABASE_URL || 'postgres://@localhost:5432/' + databaseName;
 var db = pgp(connectionString);
 
 //refactor database functions to handle only database calls
@@ -47,4 +47,15 @@ var removeProject = function removeProject(projID) {
   return db.none('DELETE FROM projects WHERE id=$1', [projID]);
 };
 
-module.exports = { getAllProjects: getAllProjects, getSingleProject: getSingleProject, createProject: createProject, updateProject: updateProject, removeProject: removeProject };
+var searchProjects = function searchProjects(keywords) {
+  var variables = [];
+  var sql = '\n    SELECT\n      DISTINCT(projects.*)\n    FROM\n      projects\n  ';
+  if (keywords.search_query) {
+    var search_query = keywords.search_query.toLowerCase().replace(/^ */, '%').replace(/ *$/, '%').replace(/ +/g, '%');
+
+    variables.push(search_query);
+  }
+  return db.any(sql, variables);
+};
+
+module.exports = { getAllProjects: getAllProjects, getSingleProject: getSingleProject, createProject: createProject, updateProject: updateProject, removeProject: removeProject, searchProjects: searchProjects };
