@@ -6,8 +6,10 @@
   "scripts": {
     "build": "babel --copy-files src --out-dir dist",
     "build:watch": "npm run build -- --watch",
+    "start": "node dist/server.js",
     "start:dev": "nodemon dist/server.js",
-    "test": "mocha --compilers js:babel-register ./test/*.js --recursive"
+    "test": "mocha --compilers js:babel-register ./test/*.js --recursive",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",

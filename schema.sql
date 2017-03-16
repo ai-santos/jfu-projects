@@ -3,6 +3,8 @@ CREATE DATABASE jfu_projects;
 
 \c jfu_projects;
 
+DROP TABLE IF EXISTS projects;
+
 CREATE TABLE projects(
   id SERIAL PRIMARY KEY,
   name VARCHAR(255),
