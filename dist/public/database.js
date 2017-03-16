@@ -7,7 +7,7 @@ var options = {
 
 var databaseName = 'jfu_projects';
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://@localhost:5432/' + databaseName;
+var connectionString = process.env.DATABASE_URL || 'postgres://@localhost:5432/' + databaseName;
 var db = pgp(connectionString);
 
 //refactor database functions to handle only database calls
