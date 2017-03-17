@@ -129,9 +129,10 @@ router.get('/projects/delete/:proj_id', function (request, response, next) {
   });
 });
 
-router.get('/search-projects', function (request, response) {
+router.post('/search-projects', function (request, response) {
+  console.log('our request', request.body);
   var searchKeywords = {
-    search_query: request.search_query
+    search_query: request.body.search_query
   };
 
   _database2.default.searchProjects(searchKeywords).then(function (projects) {

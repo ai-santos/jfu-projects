@@ -15,15 +15,6 @@ $(document).ready( () => {
     })
   }
 
-  //create a bunch of icons and add to source vector
-  // const iconFeature = new ol.Feature({
-  //   geometry: new ol.geom.Point(ol.proj.transform([-122.208515, 37.779505], 'EPSG:4326',   'EPSG:3857')),
-  //   name: 'Null Island',
-  //   population: 4000,
-  //   rainfall: 500
-  // })
-  // vectorSource.addFeature(iconFeature)
-
   //create the style
   const iconStyle = new ol.style.Style({
     image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
@@ -63,6 +54,20 @@ $(document).ready( () => {
   }
   addProjectsToMap()
 
+  const zoomToExtentControl = new ol.control.ZoomToExtent({
+    extent: [-11243808.051695308, 4406397.202710291, -4561377.290892059, 6852382.107835932]
+  })
+
+  map.addControl(zoomToExtentControl)
+  const controls = map.getControls()
+  let attributionControl
+  controls.forEach( (el) => {
+    console.log(el instanceof ol.control.Attribution)
+    if(el instanceof ol.control.Attribution) {
+      attributionControl = el
+    }
+  })
+  map.removeControl(attributionControl)
 
 })
 

@@ -80,11 +80,12 @@ const searchProjects = (keywords) => {
   const variables = []
   let sql = `
     SELECT
-      DISTINCT(projects.*)
+      DISTINCT *
     FROM
       projects
   `
   if(keywords.search_query) {
+    console.log('our keywords', keywords)
     let search_query = keywords.search_query
       .toLowerCase()
       .replace(/^ */, '%')
@@ -92,13 +93,14 @@ const searchProjects = (keywords) => {
       .replace(/ +/g, '%')
 
     variables.push(search_query)
+    console.log('our search query-->', search_query)
     sql +=`
       WHERE
-        LOWER(projects.name) LIKE $${variables.length}
+        LOWER(projects.name) LIKE $1
       OR
-        LOWER(projects.description) LIKE $${variables.length}
+        LOWER(projects.description) LIKE $1
       OR
-        LOWER(projects.city) LIKE $${variables.length}
+        LOWER(projects.city) LIKE $1
     `
   }
   return db.any(sql, variables)

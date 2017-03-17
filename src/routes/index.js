@@ -109,9 +109,10 @@ router.get('/projects/delete/:proj_id', (request, response, next) => {
     .catch( error => next ( error ))
 })
 
-router.get('/search-projects', (request, response) => {
+router.post('/search-projects', (request, response) => {
+    console.log('our request', request.body)
   const searchKeywords = {
-    search_query: request.search_query
+    search_query: request.body.search_query
   }
 
   db.searchProjects(searchKeywords)

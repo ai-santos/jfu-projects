@@ -49,12 +49,14 @@ var removeProject = function removeProject(projID) {
 
 var searchProjects = function searchProjects(keywords) {
   var variables = [];
-  var sql = '\n    SELECT\n      DISTINCT(projects.*)\n    FROM\n      projects\n  ';
+  var sql = '\n    SELECT\n      DISTINCT *\n    FROM\n      projects\n  ';
   if (keywords.search_query) {
+    console.log('our keywords', keywords);
     var search_query = keywords.search_query.toLowerCase().replace(/^ */, '%').replace(/ *$/, '%').replace(/ +/g, '%');
 
     variables.push(search_query);
-    sql += '\n      WHERE\n        LOWER(projects.name) LIKE $' + variables.length + '\n      OR\n        LOWER(projects.description) LIKE $' + variables.length + '\n      OR\n        LOWER(projects.city) LIKE $' + variables.length + '\n    ';
+    console.log('our search query-->', search_query);
+    sql += '\n      WHERE\n        LOWER(projects.name) LIKE $1\n      OR\n        LOWER(projects.description) LIKE $1\n      OR\n        LOWER(projects.city) LIKE $1\n    ';
   }
   return db.any(sql, variables);
 };
