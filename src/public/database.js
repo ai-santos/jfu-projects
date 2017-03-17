@@ -92,6 +92,14 @@ const searchProjects = (keywords) => {
       .replace(/ +/g, '%')
 
     variables.push(search_query)
+    sql +=`
+      WHERE
+        LOWER(projects.name) LIKE $${variables.length}
+      OR
+        LOWER(projects.description) LIKE $${variables.length}
+      OR
+        LOWER(projects.city) LIKE $${variables.length}
+    `
   }
   return db.any(sql, variables)
 }
