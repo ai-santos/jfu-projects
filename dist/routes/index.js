@@ -136,9 +136,18 @@ router.post('/search-projects', function (request, response) {
   };
 
   _database2.default.searchProjects(searchKeywords).then(function (projects) {
-    return response.json(projects);
+    return parseAddress(projects);
+  }).then(function (addresses) {
+    return addresses.map(geocoderPromise);
+  }).then(function (geocodePromises) {
+    Promise.all(geocodePromises)
+
+    //call a function that maps over geocodes and returns an array of latLongs
+    .then(function (geocodes) {
+      response.send(parseGeocodes(geocodes));
+    });
   }).catch(function (error) {
-    return next(error);
+    response.send(error);
   });
 });
 

@@ -54,20 +54,46 @@ $(document).ready( () => {
   }
   addProjectsToMap()
 
-  const zoomToExtentControl = new ol.control.ZoomToExtent({
-    extent: [-11243808.051695308, 4406397.202710291, -4561377.290892059, 6852382.107835932]
-  })
+  // const getSearchCoords = () => {
+  //   $.get('/search-projects', (projects) => {
+  //       return projects.map( (project) => {
+  //         let coords = {}
+  //         const lat = project.lat
+  //         const lng = project.lng
+  //         coords.latitude = lat
+  //         coords.longitude = lng
+  //         console.log(coords)
+  //       })
+  //   })
+  // }
 
-  map.addControl(zoomToExtentControl)
-  const controls = map.getControls()
-  let attributionControl
-  controls.forEach( (el) => {
-    console.log(el instanceof ol.control.Attribution)
-    if(el instanceof ol.control.Attribution) {
-      attributionControl = el
-    }
-  })
-  map.removeControl(attributionControl)
+  // const zoomToBounds = (searchData) => {
+  //   //store current and search location's long and lat
+  //   const currentLoc = [90.208515, 47.779505]
+  //   const searchLoc = [-112.208515, 27.779505]
+
+  //   //set a bounding box between the current Location and the search location
+  //   let boundsExtent = new ol.extent.boundingExtent([searchLoc, currentLoc])
+
+  //   //transform coordinates from WGS to EPSG
+  //   boundsExtent = ol.proj.transformExtent(boundsExtent, ol.proj.get('EPSG:4326'), ol.proj.get('EPSG:3857'))
+  //   console.log('these are our bounds-->', boundsExtent)
+
+  //   const zoomToExtentControl = new ol.control.ZoomToExtent({
+  //     extent: boundsExtent
+  //   })
+  // }
+
+  // map.addControl(zoomToExtentControl)
+  // const controls = map.getControls()
+  // let attributionControl
+  // controls.forEach( (el) => {
+  //   console.log(el instanceof ol.control.Attribution)
+  //   if(el instanceof ol.control.Attribution) {
+  //     attributionControl = el
+  //   }
+  // })
+  // map.removeControl(attributionControl)
 
 })
 

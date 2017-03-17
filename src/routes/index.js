@@ -111,13 +111,22 @@ router.get('/projects/delete/:proj_id', (request, response, next) => {
 
 router.post('/search-projects', (request, response) => {
     console.log('our request', request.body)
-  const searchKeywords = {
+    const searchKeywords = {
     search_query: request.body.search_query
   }
 
   db.searchProjects(searchKeywords)
-    .then( projects => response.json(projects) )
-    .catch( error => next( error ) )
+    .then( projects => parseAddress(projects) )
+    .then( addresses => addresses.map(geocoderPromise))
+    .then(geocodePromises => {
+      Promise.all(geocodePromises)
+
+      //call a function that maps over geocodes and returns an array of latLongs
+      .then( (geocodes) => {
+        response.send(parseGeocodes(geocodes))
+      })
+    }).catch(error => { response.send(error) })
+
 })
 
 module.exports = router;
